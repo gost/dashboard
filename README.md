@@ -12,5 +12,5 @@ $ docker build -t geodan/gost-dashboard .
 Run image:
 
 ```
-$ docker run geodan/gost-dashboard
+$ docker run -p 80:80 geodan/gost-dashboard
 ```
