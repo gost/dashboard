@@ -1,5 +1,6 @@
 # dashboard
-Dashboard for GOST
+
+Dashboard for GOST (experimental)
 
 ### Docker
 
