@@ -3,6 +3,8 @@ Dashboard for GOST
 
 ### Docker
 
+Image: https://store.docker.com/community/images/geodan/gost-dashboard
+
 Build image:
 
 ```
