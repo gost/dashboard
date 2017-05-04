@@ -1,7 +1,12 @@
 # dashboard
-Dashboard for GOST
+
+Dashboard for GOST (experimental)
+
+Code copied from https://github.com/Geodan/gost/tree/master/src/client (2017-05-02)
 
 ### Docker
+
+Image: https://store.docker.com/community/images/geodan/gost-dashboard
 
 Build image:
 
