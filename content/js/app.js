@@ -35,6 +35,18 @@ var iconObservation = "fa-eye";
 var iconSensor = "fa-dashboard";
 var iconObservedProperty = "fa-list";
 
+function getSSLEnabled() {
+	return location.protocol == 'https:'
+}
+
+function getWebSocketPort() {
+	if (getSSLEnabled()){
+		return Number(9002);
+	} else {
+		return Number(9001);
+	}
+}
+
 function getUrl() {
     var path = window.location.pathname;
     // path = path.substring(0, path.lastIndexOf('/Dashboard'));
