@@ -1,11 +1,16 @@
-#!/bin/bash
+#!/bin/sh
 
-ssl="$NGINX_ENABLE_SSL"
+if [[ -z "${NGINX_ENABLE_SSL}" ]]; then
+  ssl="false"
+else
+  ssl="${NGINX_ENABLE_SSL}"
+fi
 
 echo "server {" > /etc/nginx/conf.d/default.conf
 
-if [ "${ssl,,}" = "true" ]
-then
+if [ "$ssl" == "true" ]; then
+
+echo "Creating NGINX default.conf with ssl"
 
 echo "	
 	listen 443 ssl http2;
@@ -19,6 +24,8 @@ echo "
 	ssl_prefer_server_ciphers on;"  >> /etc/nginx/conf.d/default.conf
 	
 else
+
+echo "Creating NGINX default.conf without ssl"
 
 echo "	
 	listen 8080;
