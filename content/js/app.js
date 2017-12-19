@@ -1,3 +1,4 @@
+var wsURL = "";
 var gostApp = angular.module('gostApp', ['ngRoute']);
 
 gostApp.factory('Page', function () {
@@ -227,4 +228,13 @@ function guid() {
   }
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
     s4() + '-' + s4() + s4() + s4();
+}
+
+function getWebsocketUrl() {    
+    if (typeof wsURL !== 'undefined' && wsURL != "") {
+        return wsURL   
+    } else {
+        var scheme = getSSLEnabled() ? "wss://" : "ws://";
+        return scheme + location.hostname + ":" + getWebSocketPort() + "/"
+    }   
 }

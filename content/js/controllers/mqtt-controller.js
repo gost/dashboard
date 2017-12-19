@@ -6,10 +6,10 @@ gostApp.controller('MqttCtrl', function($scope) {
         client.unsubscribe("$SYS/broker/#");
     });
 
-    client = new Paho.MQTT.Client(location.hostname, getWebSocketPort(), guid());
+    client = new Paho.MQTT.Client(getWebsocketUrl(), guid());
     client.onConnectionLost = onConnectionLost;
     client.onMessageArrived = onMessageArrived;
-    client.connect({ onSuccess: onConnect, useSSL: getSSLEnabled() });
+    client.connect({ onSuccess: onConnect });
 
     function onConnect() {
         client.subscribe("$SYS/broker/#");

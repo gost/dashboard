@@ -10,7 +10,7 @@ gostApp.controller('DatastreamCtrl', function ($scope, $http, $routeParams, Page
     labels = [];
     values = [];
 
-	client = new Paho.MQTT.Client(location.hostname, getWebSocketPort(), guid());
+	client = new Paho.MQTT.Client(getWebsocketUrl(), guid());
     client.onConnectionLost = onConnectionLost;
     client.onMessageArrived = onMessageArrived;
     client.connect({ onSuccess: onConnect, useSSL: getSSLEnabled() });

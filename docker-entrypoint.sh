@@ -1,12 +1,37 @@
 #!/bin/sh
 
+sed '1d' /var/www/html/js/app.js > temp; mv temp /var/www/html/js/app.js
+
+if [[ -z "${GOST_WEBSOCKET_URL}" ]]; then
+	echo "var wsURL = \"\";"  | cat - /var/www/html/js/app.js > temp && mv temp /var/www/html/js/app.js
+else
+	urlParam="var wsURL = \"$GOST_WEBSOCKET_URL\";";	
+	echo "$urlParam" | cat - /var/www/html/js/app.js > temp && mv temp /var/www/html/js/app.js
+fi
+
 if [[ -z "${NGINX_ENABLE_SSL}" ]]; then
   ssl="false"
 else
   ssl="${NGINX_ENABLE_SSL}"
 fi
 
-echo "server {" > /etc/nginx/conf.d/default.conf
+echo "
+client_body_buffer_size 		10K;
+client_header_buffer_size 		1k;
+client_max_body_size 			8m;
+large_client_header_buffers 	2 1k;
+client_body_timeout 			12;
+client_header_timeout 			12;
+send_timeout 	 				10;
+gzip             				on;
+gzip_comp_level  				2;
+gzip_min_length  				1000;
+gzip_proxied     				expired no-cache no-store private auth;
+gzip_types       				text/plain application/x-javascript text/xml text/css application/xml application/json;
+access_log 						off;
+" > /etc/nginx/conf.d/default.conf
+
+echo "server {" >> /etc/nginx/conf.d/default.conf
 
 if [ "$ssl" == "true" ]; then
 
